@@ -1,7 +1,7 @@
 # setup_extension.ps1
 # 1. Define paths on the SAUCE VM
-$zipPath = "C:\sauce\extension.zip"
-$destPath = "C:\sauce\my_extension"
+$zipPath = "C:\Users\sauce\extension.zip"
+$destPath = "C:\Users\sauce\my_extension"
 
 # 2. Create the folder
 New-Item -ItemType Directory -Force -Path "C:\sauce"
