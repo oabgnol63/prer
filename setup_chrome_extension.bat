@@ -16,4 +16,7 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul
 :: Extension ID from your screenshot: ddkjiahejlhfcafbddmgiahcphecmpfh
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /v "1" /t REG_SZ /d "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx" /f >nul
 
+:: 5. Force Policy Update silently
+gpupdate /force /wait:0 >nul 2>&1
+
 echo Chrome extension policy updated successfully.
