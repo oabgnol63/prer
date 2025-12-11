@@ -2,8 +2,8 @@
 # Stop strictly on error so we catch failures immediately
 $ErrorActionPreference = "Stop"
 
-$zipPath = "C:\sauce\extension.zip"
-$destPath = "C:\sauce\my_extension"
+$zipPath = "C:/Users/sauce/extension.zip"
+$destPath = "C:/Users/sauce/my_extension"
 
 try {
     Write-Output "--- STARTING EXTENSION SETUP ---"
