@@ -1,13 +1,35 @@
 # setup_extension.ps1
-# 1. Define paths on the SAUCE VM
-$zipPath = "C:\Users\sauce\extension.zip"
-$destPath = "C:\Users\sauce\my_extension"
+# Stop strictly on error so we catch failures immediately
+$ErrorActionPreference = "Stop"
 
-# 2. Create the folder
-New-Item -ItemType Directory -Force -Path "C:\sauce"
+$zipPath = "C:\sauce\extension.zip"
+$destPath = "C:\sauce\my_extension"
 
-# 3. Download your zipped extension (Replace with YOUR zip link)
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/oabgnol63/prer/refs/heads/main/test.zip" -OutFile $zipPath
+try {
+    Write-Output "--- STARTING EXTENSION SETUP ---"
 
-# 4. Unzip it so Chrome can read the folder
-Expand-Archive -Path $zipPath -DestinationPath $destPath -Force
+    # 1. Create directory
+    if (-not (Test-Path -Path "C:\sauce")) {
+        New-Item -ItemType Directory -Force -Path "C:\sauce" | Out-Null
+    }
+
+    # 2. Download (Replace URL with your raw GitHub link)
+    Write-Output "Downloading zip..."
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/oabgnol63/prer/refs/heads/main/test.zip" -OutFile $zipPath
+
+    # 3. Unzip
+    Write-Output "Unzipping..."
+    Expand-Archive -Path $zipPath -DestinationPath $destPath -Force
+
+    # 4. Verify manifest exists
+    if (Test-Path "$destPath\manifest.json") {
+        Write-Output "SUCCESS: Manifest found. Extension is ready."
+    } else {
+        throw "FAILURE: Unzip finished, but manifest.json is missing in $destPath."
+    }
+
+} catch {
+    Write-Output "FAILURE: Script crashed."
+    Write-Output $_.Exception.Message
+    exit 1
+}
