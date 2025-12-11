@@ -1,7 +1,7 @@
 # setup_extension.ps1
 # Stop strictly on error so we catch failures immediately
 $ErrorActionPreference = "Stop"
-
+New-Item -ItemType File -Force -Path "C:\Users\sauce\i_was_here.txt"
 $zipPath = "C:/Users/sauce/extension.zip"
 $destPath = "C:/Users/sauce/my_extension"
 
