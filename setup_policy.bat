@@ -2,20 +2,21 @@
 setlocal
 
 :: 1. DEFINE VARIABLES
+:: uBlock Origin Lite ID
 set "EXT_ID=ddkjiahejlhfcafbddmgiahcphecmpfh"
+:: Standard Web Store Update URL
 set "URL=https://clients2.google.com/service/update2/crx"
 
-:: 2. INSTALL TO CURRENT USER (HKCU)
-:: This works even without Admin rights.
-:: Chrome checks this location for the specific user running the browser.
+:: 2. CLEANUP OLD KEYS (To avoid conflicts)
+reg delete "HKCU\Software\Google\Chrome\Extensions" /f >nul 2>&1
+reg delete "HKCU\Software\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul 2>&1
 
-:: Create the key path
-reg add "HKCU\Software\Google\Chrome\Extensions\%EXT_ID%" /f >nul
+:: 3. CREATE THE POLICY KEY (HKCU)
+:: We use "Policies" (Strong) instead of "Extensions" (Weak)
+reg add "HKCU\Software\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul
 
-:: Add the update_url
-reg add "HKCU\Software\Google\Chrome\Extensions\%EXT_ID%" /v "update_url" /t REG_SZ /d "%URL%" /f >nul
-
-:: 3. VERIFY (Optional: Print success for logs)
-echo [INFO] Extension configured for Current User (HKCU).
+:: 4. ADD THE EXTENSION
+:: Because this is a Web Store URL, Chrome allows this even on non-enterprise machines.
+reg add "HKCU\Software\Policies\Google\Chrome\ExtensionInstallForcelist" /v "1" /t REG_SZ /d "%EXT_ID%;%URL%" /f >nul
 
 exit /b 0
