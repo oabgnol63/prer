@@ -1,32 +1,21 @@
 @echo off
 setlocal
 
-:: 1. CHECK ADMIN RIGHTS
+:: 1. Check for Admin rights (Exit silently if not Admin)
 net session >nul 2>&1
-if %errorLevel% neq 0 (
-    echo [ERROR] Please right-click and run as Administrator.
-    pause
-    exit
-)
+if %errorLevel% neq 0 exit /b 1
 
-echo [INFO] Cleaning up old/incorrect keys...
-:: Remove old attempts to prevent conflicts
+:: 2. Cleanup old keys silently
 reg delete "HKLM\SOFTWARE\Google\Chrome\ExtensionInstallForcelist" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul 2>&1
 
-echo [INFO] Creating Policy Key...
+:: 3. Create Policy Key
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul
 
-echo [INFO] Installing uBlock Origin Lite...
-:: EXTENSION ID: ddkjiahejlhfcafbddmgiahcphecmpfh (uBlock Origin Lite)
-:: UPDATE URL:   https://clients2.google.com/service/update2/crx (STANDARD WEB STORE URL)
+:: 4. Add uBlock Origin Lite (Silent)
+:: ID: ddkjiahejlhfcafbddmgiahcphecmpfh
+:: URL: https://clients2.google.com/service/update2/crx
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /v "1" /t REG_SZ /d "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx" /f >nul
 
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /v "1" /t REG_SZ /d "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx" /f
-
-echo [INFO] Applying Policy...
-gpupdate /force
-
-echo.
-echo [SUCCESS] uBlock Origin Lite configured.
-echo Please restart Chrome and check chrome://extensions.
-pause
+:: 5. Exit immediately
+exit /b 0
