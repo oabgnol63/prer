@@ -1,21 +1,22 @@
 @echo off
 setlocal
 
-:: 1. Check for Admin rights (Exit silently if not Admin)
+:: 1. CHECK ADMIN
 net session >nul 2>&1
 if %errorLevel% neq 0 exit /b 1
 
-:: 2. Cleanup old keys silently
-reg delete "HKLM\SOFTWARE\Google\Chrome\ExtensionInstallForcelist" /f >nul 2>&1
-reg delete "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul 2>&1
+:: 3. INSTALL VIA "EXTERNAL EXTENSIONS"
+:: This tells Chrome: "Here is an extension available for this machine."
+:: Path: Software\Google\Chrome\Extensions\<EXTENSION_ID>
+:: Key: update_url
 
-:: 3. Create Policy Key
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul
+set "EXT_ID=ddkjiahejlhfcafbddmgiahcphecmpfh"
+set "URL=https://clients2.google.com/service/update2/crx"
 
-:: 4. Add uBlock Origin Lite (Silent)
-:: ID: ddkjiahejlhfcafbddmgiahcphecmpfh
-:: URL: https://clients2.google.com/service/update2/crx
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist" /v "1" /t REG_SZ /d "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx" /f >nul
+:: Write to the standard 64-bit location
+reg add "HKLM\SOFTWARE\Google\Chrome\Extensions\%EXT_ID%" /v "update_url" /t REG_SZ /d "%URL%" /f >nul
 
-:: 5. Exit immediately
+:: Write to the 32-bit fallback location (WOW6432Node) just in case
+reg add "HKLM\SOFTWARE\WOW6432Node\Google\Chrome\Extensions\%EXT_ID%" /v "update_url" /t REG_SZ /d "%URL%" /f >nul
+
 exit /b 0
