@@ -4,7 +4,8 @@ setlocal
 :: --- CONFIGURATION ---
 :: 1. The URL where your zipped profile is hosted.
 ::    (If using Sauce Storage, use the direct link or API link)
-set "PROFILE_URL=https://drive.usercontent.google.com/download?id=1I5E5xBjHINx-91_luXaqPu23yH6x02cN&export=download&confirm=t&uuid=f8efb204-85e4-45cc-b170-e283e52f4d22"
+
+set "PROFILE_URL=https://drive.usercontent.google.com/download?id=1g1s-JaGiSWyeCauF7_bSstYE3ZjgOrn0&export=download&confirm=t&uuid=bf81da93-4fdd-4139-832c-95f3e60e83d5"
 
 :: 2. The destination on the Sauce VM.
 ::    We create a specific folder 'chrome-profile' inside 'sauce' to keep it clean.
