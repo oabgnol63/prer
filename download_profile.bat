@@ -32,8 +32,6 @@ if exist "%SRC_PROFILE%\Preferences" copy /Y "%SRC_PROFILE%\Preferences" "%DST_P
 if exist "%SRC_PROFILE%\Secure Preferences" copy /Y "%SRC_PROFILE%\Secure Preferences" "%DST_PROFILE%\Secure Preferences"
 
 :: Cleanup
-del "%ZIP_FILE%"
-rmdir /S /Q "%EXTRACT_DIR%"
 
 echo [Sauce Prerun] Done.
 exit /b 0
