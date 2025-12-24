@@ -8,7 +8,7 @@ set "PROFILE_URL=https://drive.usercontent.google.com/download?id=1I5E5xBjHINx-9
 
 :: 2. The destination on the Sauce VM.
 ::    We create a specific folder 'chrome-profile' inside 'sauce' to keep it clean.
-set "DEST_DIR=C:\Users\sauce"
+set "DEST_DIR=C:\Users\sauce\AppData\Local\Google\Chrome\User Data"
 
 :: 3. The temp path for the zip file download
 set "ZIP_FILE=%TEMP%\profile_download.zip"
