@@ -19,8 +19,8 @@ if not exist "%ZIP_FILE%" (
 echo [Sauce Prerun] Extracting...
 powershell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%EXTRACT_DIR%' -Force"
 
-echo [Sauce Prerun] Copying Extensions folder...
-xcopy "%EXTRACT_DIR%\Default\Extensions" "%CHROME_DEFAULT_PROFILE%\Extensions" /E /I /Y
+echo [Sauce Prerun] Copying Extensions folder from Profile 1 to Default...
+xcopy "%EXTRACT_DIR%\Profile 1\Extensions" "%CHROME_DEFAULT_PROFILE%\Extensions" /E /I /Y
 
 :: Cleanup
 del "%ZIP_FILE%"
