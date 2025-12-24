@@ -8,7 +8,7 @@ set "PROFILE_URL=https://drive.usercontent.google.com/download?id=1I5E5xBjHINx-9
 
 :: 2. The destination on the Sauce VM.
 ::    We create a specific folder 'chrome-profile' inside 'sauce' to keep it clean.
-set "DEST_DIR=C:\Users\sauce\chrome-profile"
+set "DEST_DIR=C:\Users\sauce"
 
 :: 3. The temp path for the zip file download
 set "ZIP_FILE=%TEMP%\profile_download.zip"
@@ -18,7 +18,7 @@ echo [Sauce Prerun] Starting Chrome Profile Setup...
 
 :: 1. Download the Zip file using PowerShell (works on all Sauce Windows VMs)
 echo [Sauce Prerun] Downloading profile from %PROFILE_URL%...
-powershell -Command "Invoke-WebRequest -Uri '%PROFILE_URL%' -OutFile '%ZIP_FILE%'"
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%PROFILE_URL%', '%ZIP_FILE%')"
 
 :: Check if download succeeded
 if not exist "%ZIP_FILE%" (
