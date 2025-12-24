@@ -5,7 +5,7 @@ set "PROFILE_URL=https://drive.usercontent.google.com/download?id=1I5E5xBjHINx-9
 set "ZIP_FILE=%TEMP%\profile_download.zip"
 set "EXTRACT_DIR=%TEMP%\profile_extract"
 set "CHROME_USER_DATA=%LOCALAPPDATA%\Google\Chrome\User Data"
-set "SRC_PROFILE=%EXTRACT_DIR%\Profile 1"
+set "SRC_PROFILE=%EXTRACT_DIR%\Profile 4"
 set "DST_PROFILE=%CHROME_USER_DATA%\Default"
 
 echo [Sauce Prerun] Downloading profile...
