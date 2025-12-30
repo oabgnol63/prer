@@ -6,7 +6,7 @@ setlocal
 set "EXT1_ID=ddkjiahejlhfcafbddmgiahcphecmpfh"
 set "EXT2_ID=edibdbjcniadpccecjdfdjjppcpchdlm"
 set "EXT3_ID=gidlfommnbibbmegmgajdbikelkdcmcl"
-set "EXT4_ID=mdjildafknihdffpkfmmpnpoiajfjnjd"
+set "EXT4_ID=mlomiejdfkolichcflejclcbmpeaniij"
 :: Standard Web Store Update URL
 set "URL=https://clients2.google.com/service/update2/crx"
 
