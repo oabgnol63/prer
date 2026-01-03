@@ -9,6 +9,7 @@ set "EXT3_ID=gidlfommnbibbmegmgajdbikelkdcmcl"
 set "EXT4_ID=ohahllgiabjaoigichmmfljhkcfikeof"
 :: Standard Web Store Update URL
 set "URL=https://clients2.google.com/service/update2/crx"
+set "EDGE_SOURCES=HKCU\Software\Policies\Microsoft\Edge\ExtensionInstallSources"
 
 :: 2. CLEANUP OLD KEYS (To avoid conflicts)
 reg delete "HKCU\Software\Google\Chrome\Extensions" /f >nul 2>&1
@@ -19,6 +20,9 @@ reg delete "HKCU\Software\Policies\Microsoft\Edge\ExtensionInstallForcelist" /f 
 :: 3. CREATE THE POLICY KEY (HKCU)
 :: We use "Policies" (Strong) instead of "Extensions" (Weak)
 reg add "HKCU\Software\Policies\Google\Chrome\ExtensionInstallForcelist" /f >nul
+
+reg add "%EDGE_SOURCES%" /f >nul
+reg add "%EDGE_SOURCES%" /v "1" /t REG_SZ /d "%URL%/*" /f >nul
 reg add "HKCU\Software\Policies\Microsoft\Edge\ExtensionInstallForcelist" /f >nul
 
 :: 4. ADD THE EXTENSION
